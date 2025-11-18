@@ -13,7 +13,11 @@ Immagine
 
 Il protocollo MQTT permette di utilizzare topics differenti per gestire le comunicazioni con il microcontroller, in particolare:
 
+- jbrd_idunivoco/status -> Viene utilizzato per comunicare informazioni circa lo stato di funzionamento del sistema
+- jbrd_idunivoco/IN -> Tutti i comandi da inviare verso il microcontroller
+- jbrd_idunivoco/OUT ->Tutti gli output in uscita dal microcontroller
 
+## Formato dei comandi
 
 ## Componenti
 
