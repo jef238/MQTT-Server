@@ -18,7 +18,9 @@ Il protocollo MQTT permette di utilizzare topics differenti per gestire le comun
 - jbrd_idunivoco/OUT ->Tutti gli output in uscita dal microcontroller
 
 ## Formato dei comandi
-
+Nel protocollo MQTT il contenuto del messaggio scambiato tra il client ed il broker è chiamto patyload e può contenere 
+qualsiasi tipo di dato binario come testo, XML, JSON immagini ecc.ec.. In questo caso i messaggi saranno costituiti dal pattern
+*ABCD#
 ## Componenti
 
 ## Codice ESP01 (LUA scripts)
