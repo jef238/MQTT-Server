@@ -25,5 +25,5 @@ Il protocollo MQTT permette di utilizzare topics differenti per gestire le comun
 
 ## Codice JefBOARD (Attiny2313)
 
-## Utilizzi
+## Esempio reale di funzionamento
 
