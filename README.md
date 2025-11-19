@@ -266,7 +266,7 @@ int main(void) {
 	}
 }
 ```
-## Esempio reale di funzionamento
+## Riepilogo operativo
 
 Riepilogando quanto detto:
 - Flash firmware nodemcu-release-ENDUSR_MQTT-integer.bin su ESP01
