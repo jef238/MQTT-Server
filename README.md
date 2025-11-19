@@ -276,7 +276,12 @@ Riepilogando quanto detto:
 A questo punto dovremmo utilizzare un client MQTT per inviare e/o ricevere comandi dal dispositivo; in questo esempio utilizzeremo un appa Android "IoT MQTT Panel" ma il principio base rimane uguale.
 In questa APP è possibile configurare dei pannelli ed inserire degli elementi correlati ai topic MQTT:
 
-![1](1.png)![2](2.png)![3](3.png)![4](4.png)![5](5.png)![6](6.png)
+- ![1](1.png)!
+- [2](2.png)
+- ![3](3.png)
+- ![4](4.png)
+- ![5](5.png)
+- ![6](6.png)
 
 
 
