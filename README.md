@@ -85,7 +85,6 @@ end)
 -- init mqtt client with logins, keepalive timer 120sec
 
 m = mqtt.Client("jbrd" .. uid, 120)
---m = mqtt.Client("jbrd" .. uid, 240, "jef238", "Vaffanculo.1")
 
 -- setup Last Will and Testament (optional)
 -- Broker will publish a message with qos = 0, retain = 0, data = "offline"
@@ -95,13 +94,10 @@ m:lwt("/lwt", "offline", 0, 0)
 m:on("offline", function(client) print ("offline") end)
 
 -- on publish message receive event FROM jefboard attiny2313 
-m:on("message", function(client, topic, data)
-  --print(topic .. ":" )
+m:on("message", function(client, topic, data)  
   if data ~= nil then
     --send topic subscribed data to serial -> attiny2313
     print(data)   
-    --debug return
-    --m:publish("jbrd_" .. uid .. "/OUT", data, 0, 0)
   end
 end)
 
@@ -116,8 +112,7 @@ function handle_mqtt_error(client, reason)
 end
 
 function do_mqtt_connect()
-  m:connect("broker.hivemq.com", 1883, false, function(client)
-  --m:connect("33091cc87a60424b8416c3666f6eaa92.s1.eu.hivemq.cloud", 8883, false, function(client)  
+  m:connect("broker.hivemq.com", 1883, false, function(client)  
     print("connected")
     m:publish("jbrd_" .. uid .. "/status", "jefBoard is alive! : " .. tmr.now(), 0, 0)    
     m:subscribe("jbrd_" .. uid .. "/IN", 0, function(client) print("subscribe success") end)
