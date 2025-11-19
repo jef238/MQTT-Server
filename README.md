@@ -32,6 +32,52 @@ ATTENZIONE: Il codice contenuto nel file init.lua attiva una funzione di callbac
 Per eseguire i test utilizzeremo un broker MQTT demo di test broker.hivemq.com.
 I file da caricare su ESP01 saranno due, init.lua e mqtt.lua:
 
+### init.lua
+
+```
+-- jefBoard ESP01 vers. 1.0
+
+uart.setup(0, 9600, 8, uart.PARITY_NONE, uart.STOPBITS_1, 1)
+
+print("\n\nJefBoard is loading...")
+print("\n10 seconds to activate ESP01 serial input callback to MQQT")
+
+wifi.sta.autoconnect(1)
+
+uid = string.sub(wifi.sta.getmac(),-5)
+uid = string.gsub(uid,":","")
+
+function main()
+
+dofile("mqtt.lua")
+
+end
+
+enduser_setup.start("jefBoard_" .. uid, main)
+
+function clearC()
+wifi.sta.clearconfig()
+end
+
+gpio.mode(3, gpio.INT)
+gpio.trig(3, "down", clearC)
+
+--Attendi 10 secondi prima di attivare callback dell'input seriale dell'esp01 to-> mqqt
+--In questo range è ancora possibile utilizzare ESPlorer e disabilitare il callback decommentando
+--uart.on("data")
+
+tmr.create():alarm(10000, tmr.ALARM_SINGLE, function()
+
+uart.on("data", "#",
+  function(data)
+   m:publish("jbrd_" .. uid .. "/OUT", data, 0, 0)
+  end, 
+  0)
+  
+end)
+
+--uart.on("data")
+```
 
 
 ## Codice JefBOARD (Attiny2313)
