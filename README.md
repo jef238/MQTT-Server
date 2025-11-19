@@ -17,6 +17,10 @@ Il protocollo MQTT permette di utilizzare topics differenti per gestire le comun
 - jbrd_idunivoco/IN -> Tutti i comandi da inviare verso il microcontroller (JefBoard)
 - jbrd_idunivoco/OUT ->Tutti gli output in uscita dal microcontroller (JefBoard)
 
+Nota: idunivoco viene generato a partire dagli ultimi 4 caratteri del macaddress dell'ESP01 (vedi init.lua) 
+- Esempio: jefbrd_8bdd
+- Esempio di topic completo: jefbrd_8bdd/status
+
 ## Formato dei comandi
 Nel protocollo MQTT il contenuto del messaggio scambiato tra il client ed il broker è chiamato payload e può contenere 
 qualsiasi tipo di dato binario come testo, XML, JSON immagini ecc.ec.. In questo caso utilizzeremo dei messaggi costituiti da stringhe che iniziano con il carattere * e terminano con il carattere #.
@@ -269,7 +273,9 @@ Riepilogando quanto detto:
 - Caricamento script init.lua e mqtt.lua su ESP01 tramite ESPlorer (vedi su https://github.com/jef238/jefBoard/)
 - Compilazione e caricamento firmware su JefBoard-Attiny2313 (vedi su https://github.com/jef238/jefBoard/)
 - Primo avvio e collegamento al wifi del dispositivo
-A questo punto dovremmo utilizzare un client MQTT per inviare e/o ricevere comandi dal dispositivo; in questo esempio utilizzeremo un appa Android "IoT MQTT Panel" ma il principio base rimane uguale:
+A questo punto dovremmo utilizzare un client MQTT per inviare e/o ricevere comandi dal dispositivo; in questo esempio utilizzeremo un appa Android "IoT MQTT Panel" ma il principio base rimane uguale.
+In questa APP è possibile configurare dei pannelli ed inserire degli elementi correlati ai topic MQTT:
+
 
 
 
