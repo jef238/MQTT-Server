@@ -269,11 +269,12 @@ int main(void) {
 ## Esempio reale di funzionamento
 
 Riepilogando quanto detto:
-- Flash firmware nodemcu-release-ENDUSR_MQTT-integer.bin su ESP01 (vedi su https://github.com/jef238/jefBoard/)
-- Caricamento script init.lua e mqtt.lua su ESP01 tramite ESPlorer (vedi su https://github.com/jef238/jefBoard/)
-- Compilazione e caricamento firmware su JefBoard-Attiny2313 (vedi su https://github.com/jef238/jefBoard/)
+- Flash firmware nodemcu-release-ENDUSR_MQTT-integer.bin su ESP01
+- Caricamento script init.lua e mqtt.lua su ESP01
+- Compilazione e caricamento firmware su JefBoard-Attiny2313
 - Primo avvio e collegamento al wifi del dispositivo
 A questo punto dovremmo utilizzare un client MQTT per inviare e/o ricevere comandi dal dispositivo:
+- Impostare sul nostro client la connessione verso il broker broker.hivemq.com:1883
 - Per impostare la porta PD5 dell'attiny2313 su HIGH dovremmo pubblicare il payload *PD51# sul topic jefbrd_aaaa/IN
 - Per impostare la porta PD5 dell'attiny2313 su LOW dovremmo pubblicare il payload *PD501# sul topic jefbrd_aaaa/IN
 - Per avere un ritorno dello stato di esecuzione del comando dovremmo sottoscrivere il topic jefbrd_aaaa/OUT
