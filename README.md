@@ -30,6 +30,7 @@ Il firmware da caricare su ESP01 è nodeMCU compilato con i moduli opzionali END
 Una volta caricato il firmware nodeMCU è possibile caricare gli script LUA. Il file denominato init.lua viene caricato all'avvio in maniera automatica. E' possibile utilizzare il software ESPlorer (https://github.com/4refr0nt/ESPlorer) sia per caricare sia gli script LUA che per gestire al meglio l'ESP01.
 ATTENZIONE: Il codice contenuto nel file init.lua attiva una funzione di callback sulla seriale per consentire lo scambio di informazioni bidirezionale verso l'Attiny2313 dopo 10 secondi dall'avvio. Dopo non sarà più possibile utilizzare tool di gestione dell'ESP01 come ESPlorer che utilizzano appunto la seriale. In questo range di 10 secondi è possibile sostituire e/o modificare l'init.lua per ritornare ad utilizzare ESPlorer.
 Per eseguire i test utilizzeremo un broker MQTT demo di test broker.hivemq.com.
+Inoltre nel file init.lua è stato inserita la possibilità di resettare le impostazioni WIFI precedentemente salvate portando a massa il pin GPI00.
 I file da caricare su ESP01 saranno due, init.lua e mqtt.lua:
 
 ### init.lua
@@ -78,7 +79,55 @@ end)
 
 --uart.on("data")
 ```
+### mqtt.lua
 
+```
+-- init mqtt client with logins, keepalive timer 120sec
+
+m = mqtt.Client("jbrd" .. uid, 120)
+--m = mqtt.Client("jbrd" .. uid, 240, "jef238", "Vaffanculo.1")
+
+-- setup Last Will and Testament (optional)
+-- Broker will publish a message with qos = 0, retain = 0, data = "offline"
+-- to topic "/lwt" if client don't send keepalive packet
+m:lwt("/lwt", "offline", 0, 0)
+
+m:on("offline", function(client) print ("offline") end)
+
+-- on publish message receive event FROM jefboard attiny2313 
+m:on("message", function(client, topic, data)
+  --print(topic .. ":" )
+  if data ~= nil then
+    --send topic subscribed data to serial -> attiny2313
+    print(data)   
+    --debug return
+    --m:publish("jbrd_" .. uid .. "/OUT", data, 0, 0)
+  end
+end)
+
+-- on publish overflow receive event
+m:on("overflow", function(client, topic, data)
+  print(topic .. " partial overflowed message: " .. data )
+end)
+
+
+function handle_mqtt_error(client, reason)
+  tmr.create():alarm(10 * 1000, tmr.ALARM_SINGLE, do_mqtt_connect)
+end
+
+function do_mqtt_connect()
+  m:connect("broker.hivemq.com", 1883, false, function(client)
+  --m:connect("33091cc87a60424b8416c3666f6eaa92.s1.eu.hivemq.cloud", 8883, false, function(client)  
+    print("connected")
+    m:publish("jbrd_" .. uid .. "/status", "jefBoard is alive! : " .. tmr.now(), 0, 0)    
+    m:subscribe("jbrd_" .. uid .. "/IN", 0, function(client) print("subscribe success") end)
+    end,
+  handle_mqtt_error 
+  )
+end
+
+do_mqtt_connect()
+```
 
 ## Codice JefBOARD (Attiny2313)
 
