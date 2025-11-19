@@ -130,6 +130,15 @@ do_mqtt_connect()
 
 ## Codice JefBOARD (Attiny2313)
 
+Il codice sotto riportato è un esempio che permette di capire la logica di funzionamento implementata. 
+La prima cosa è l'implementazione della connessione seriale e la logica che permette di intercettare il pattern *____#. Una volta intercettato viene implementato il comando stesso.
+
+In questo esempio il comando ricevuto *PD51# permette di impostare HIGH la porta PD5; il comando *PD50# permette di impostarlo a LOW.
+
+Ultimo dettaglio non meno importante, una volta eseguito il comando; il codice ritorna tramite seriale all'ESP01, il comando stesso: questo serve ad alimentare il topic jefbrd_aaaa/OUT utile ad avere un ritorno di esecuzione dello stesso. 
+
+Ovviamente il codice può essere adattato ad molteplici utilizzi e l'implementazione dei messaggi (payload) dei topic jefbrd_aaaa/IN e jefbrd_aaaa/OUT è assolutamente personalizzabile.
+
 ### main.c
 ```
 /*
