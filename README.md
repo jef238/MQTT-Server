@@ -49,7 +49,7 @@ I file da caricare su ESP01 saranno due, init.lua e mqtt.lua:
 uart.setup(0, 9600, 8, uart.PARITY_NONE, uart.STOPBITS_1, 1)
 
 print("\n\nJefBoard is loading...")
-print("\n10 seconds to activate ESP01 serial input callback to MQQT")
+print("\n10 seconds to activate ESP01 serial input callback to MQTT")
 
 wifi.sta.autoconnect(1)
 
@@ -71,7 +71,7 @@ end
 gpio.mode(3, gpio.INT)
 gpio.trig(3, "down", clearC)
 
---Attendi 10 secondi prima di attivare callback dell'input seriale dell'esp01 to-> mqqt
+--Attendi 10 secondi prima di attivare callback dell'input seriale dell'esp01 to-> mqtt
 --In questo range è ancora possibile utilizzare ESPlorer e disabilitare il callback decommentando
 --uart.on("data")
 
