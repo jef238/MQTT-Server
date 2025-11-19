@@ -14,8 +14,8 @@ Questo progetto è basato sulla scheda JefBoard che ospita a bordo un microcontr
 Il protocollo MQTT permette di utilizzare topics differenti per gestire le comunicazioni con il microcontroller, in particolare:
 
 - jbrd_idunivoco/status -> Viene utilizzato per comunicare informazioni circa lo stato di funzionamento del sistema
-- jbrd_idunivoco/IN -> Tutti i comandi da inviare verso il microcontroller
-- jbrd_idunivoco/OUT ->Tutti gli output in uscita dal microcontroller
+- jbrd_idunivoco/IN -> Tutti i comandi da inviare verso il microcontroller (JefBoard)
+- jbrd_idunivoco/OUT ->Tutti gli output in uscita dal microcontroller (JefBoard)
 
 ## Formato dei comandi
 Nel protocollo MQTT il contenuto del messaggio scambiato tra il client ed il broker è chiamto patyload e può contenere 
