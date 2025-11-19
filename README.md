@@ -273,15 +273,8 @@ Riepilogando quanto detto:
 - Caricamento script init.lua e mqtt.lua su ESP01 tramite ESPlorer (vedi su https://github.com/jef238/jefBoard/)
 - Compilazione e caricamento firmware su JefBoard-Attiny2313 (vedi su https://github.com/jef238/jefBoard/)
 - Primo avvio e collegamento al wifi del dispositivo
-A questo punto dovremmo utilizzare un client MQTT per inviare e/o ricevere comandi dal dispositivo; in questo esempio utilizzeremo un appa Android "IoT MQTT Panel" ma il principio base rimane uguale.
-In questa APP è possibile configurare dei pannelli ed inserire degli elementi correlati ai topic MQTT:
-
-- ![1](1.png)!
-- [2](2.png)
-- ![3](3.png)
-- ![4](4.png)
-- ![5](5.png)
-- ![6](6.png)
-
-
-
+A questo punto dovremmo utilizzare un client MQTT per inviare e/o ricevere comandi dal dispositivo:
+- Per impostare la porta PD5 dell'attiny2313 su HIGH dovremmo pubblicare il payload *PD51# sul topic jefbrd_aaaa/IN
+- Per impostare la porta PD5 dell'attiny2313 su LOW dovremmo pubblicare il payload *PD501# sul topic jefbrd_aaaa/IN
+- Per avere un ritorno dello stato di esecuzione del comando dovremmo sottoscrivere il topic jefbrd_aaaa/OUT
+- Per avere un timestamp relativo allo stato di connessione del dispositivo al broker dovremmo sottoscrivere il topic jefbrd_aaaa/status
