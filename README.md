@@ -18,9 +18,13 @@ Il protocollo MQTT permette di utilizzare topics differenti per gestire le comun
 - jbrd_idunivoco/OUT ->Tutti gli output in uscita dal microcontroller (JefBoard)
 
 ## Formato dei comandi
-Nel protocollo MQTT il contenuto del messaggio scambiato tra il client ed il broker è chiamto patyload e può contenere 
-qualsiasi tipo di dato binario come testo, XML, JSON immagini ecc.ec.. In questo caso i messaggi saranno costituiti dal pattern
-*ABCD#
+Nel protocollo MQTT il contenuto del messaggio scambiato tra il client ed il broker è chiamato payload e può contenere 
+qualsiasi tipo di dato binario come testo, XML, JSON immagini ecc.ec.. In questo caso i messaggi saranno costituiti da stringhe che iniziano con il carattere * e terminano con il carattere #.
+
+Esempio: *PD51#
+
+La lunghezza complessiva di tale comando comprensivo dei caratteri * e # sarà di 8 caratteri (ma è modificabile)
+
 ## Componenti
 
 ## Codice ESP01 (LUA scripts)
