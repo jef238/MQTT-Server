@@ -265,9 +265,9 @@ int main(void) {
 ## Esempio reale di funzionamento
 
 Riepilogando quanto detto:
-- Flash firmware nodemcu-release-ENDUSR_MQTT-integer.bin su ESP01
-- Caricamento script init.lua e mqtt.lua su ESP01 tramite ESPlorer
-- Compilazione e caricamento firmware su JefBoard (Attiny2313)
+- Flash firmware nodemcu-release-ENDUSR_MQTT-integer.bin su ESP01 (vedi su https://github.com/jef238/jefBoard/)
+- Caricamento script init.lua e mqtt.lua su ESP01 tramite ESPlorer (vedi su https://github.com/jef238/jefBoard/)
+- Compilazione e caricamento firmware su JefBoard-Attiny2313 (vedi su https://github.com/jef238/jefBoard/)
 - Primo avvio e collegamento al wifi del dispositivo
 A questo punto dovremmo utilizzare un client MQTT per inviare e/o ricevere comandi dal dispositivo; in questo esempio utilizzeremo un appa Android "IoT MQTT Panel" ma il principio base rimane uguale:
 
