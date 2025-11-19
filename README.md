@@ -130,5 +130,128 @@ do_mqtt_connect()
 
 ## Codice JefBOARD (Attiny2313)
 
+### main.c
+```
+/*
+ * JefBoard_SERIAL_server.c
+ *
+ * Created: 11/11/2025 08:50:06
+ * Author : g.culotta
+ */ 
+
+#include <avr/io.h>
+#include <string.h>
+
+#define F_CPU 2000000UL
+#define BAUD 9600
+#define MYUBRR F_CPU/16/BAUD-1
+
+#define BUFFER_SIZE 8 // Un po' più grande dei 6 caratteri attesi
+
+// Definizione degli stati
+typedef enum {
+	WAITING_FOR_START,
+	RECEIVING_DATA
+} SerialState;
+
+// Funzioni usart_init e usart_receive (uguali a prima)
+void usart_init(unsigned int ubrr) {
+	UBRRH = (unsigned char)(ubrr >> 8);
+	UBRRL = (unsigned char)ubrr;
+	UCSRB = (1 << RXEN) | (1 << TXEN);
+	UCSRC = (1 << USBS) | (3 << UCSZ0);
+}
+
+unsigned char usart_receive(void) {
+	while (!(UCSRA & (1 << RXC)));
+	return UDR;
+}
+
+void USART_Transmit(unsigned char data) {
+	// Wait for the transmit buffer to be empty
+	while (!(UCSRA & (1 << UDRE)));
+
+	// Put data into buffer, sends the data
+	UDR = data;
+}
+
+void usart_send_string(const char *str) {
+	while(*str) {
+		USART_Transmit(*str);
+		str++;
+	}
+}
+
+
+int main(void) {
+	usart_init(MYUBRR);
+
+	char buffer[BUFFER_SIZE];
+	uint8_t index = 0;
+	SerialState state = WAITING_FOR_START;
+	
+	char received_message[BUFFER_SIZE];
+	uint8_t message_ready = 0;
+
+	DDRD |= (1 << PD5); //Set  as OUTPUT
+
+	while (1) {
+				
+		char c = usart_receive();
+
+		switch (state) {
+			case WAITING_FOR_START:
+			if (c == '*') {
+				index = 0; // Resetta l'indice del buffer
+				state = RECEIVING_DATA; // Cambia stato
+			}
+			break;
+
+			case RECEIVING_DATA:
+			if (c == '#') {
+				// Fine del messaggio
+				buffer[index] = '\0'; // Termina la stringa
+				strcpy(received_message, buffer);
+				message_ready = 1;
+				state = WAITING_FOR_START; // Torna in attesa
+				} else if (c == '*') {
+				// Errore o nuovo messaggio? Ricomincia.
+				index = 0;
+				} else {
+				// Aggiungi carattere al buffer se c'è spazio
+				if (index < (BUFFER_SIZE - 1)) {
+					buffer[index++] = c;
+					} else {
+					// Errore: buffer pieno. Ritorna in attesa.
+					state = WAITING_FOR_START;
+				}
+			}
+			break;
+		}
+
+		// Se un messaggio completo è stato ricevuto, processalo qui
+		if (message_ready) {
+			// Ora 'received_message' contiene la stringa tra '*' e '#'
+			// Puoi usare strcmp per confrontarla con i tuoi pattern
+			
+			if (strcmp(received_message, "PD50") == 0) {				
+				//usart_send_string(received_message);
+				PORTD &= ~(1 << PD5);
+				usart_send_string("*PD50#");
+			}
+			else if (strcmp(received_message, "PD51") == 0){				
+				//usart_send_string(received_message);
+				PORTD |=  (1 << PD5);
+				usart_send_string("*PD51#");
+			}
+			else if (strcmp(received_message, "HI") == 0){
+				//usart_send_string(received_message);
+				usart_send_string("*HI#");
+			}
+			message_ready = 0; // Resetta il flag
+		}
+	}
+}
+```
 ## Esempio reale di funzionamento
 
