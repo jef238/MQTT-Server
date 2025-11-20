@@ -13,9 +13,9 @@ Questo progetto è basato sulla scheda JefBoard che ospita a bordo un microcontr
 
 Il protocollo MQTT permette di utilizzare topics differenti per gestire le comunicazioni con il microcontroller, in particolare:
 
-- jbrd_idunivoco/status -> Viene utilizzato per comunicare informazioni circa lo stato di funzionamento del sistema
-- jbrd_idunivoco/IN -> Tutti i comandi da inviare verso il microcontroller (JefBoard)
-- jbrd_idunivoco/OUT ->Tutti gli output in uscita dal microcontroller (JefBoard)
+- **jbrd_idunivoco/status** -> Viene utilizzato per comunicare informazioni circa lo stato di funzionamento del sistema
+- **jbrd_idunivoco/IN** -> Tutti i comandi da inviare verso il microcontroller (JefBoard)
+- **jbrd_idunivoco/OUT** ->Tutti gli output in uscita dal microcontroller (JefBoard)
 
 Nota: idunivoco viene generato a partire dagli ultimi 4 caratteri del macaddress dell'ESP01 (vedi init.lua) 
 - Esempio: jefbrd_8bdd
