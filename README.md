@@ -17,9 +17,9 @@ Il protocollo MQTT permette di utilizzare topics differenti per gestire le comun
 - **jbrd_idunivoco/IN** -> Tutti i comandi da inviare verso il microcontroller (JefBoard)
 - **jbrd_idunivoco/OUT** ->Tutti gli output in uscita dal microcontroller (JefBoard)
 
-Nota: idunivoco viene generato a partire dagli ultimi 4 caratteri del macaddress dell'ESP01 (vedi init.lua) 
-- Esempio: jefbrd_8bdd
-- Esempio di topic completo: jefbrd_8bdd/status
+Nota: idunivoco viene generato a partire dagli ultimi 4 caratteri del macaddress dell'ESP01 (vedi init.lua).
+- Esempio: **jefbrd_8bdd**
+- Esempio di topic completo: **jefbrd_8bdd/status**
 
 ## Formato dei comandi
 Nel protocollo MQTT il contenuto del messaggio scambiato tra il client ed il broker è chiamato payload e può contenere 
@@ -137,9 +137,9 @@ do_mqtt_connect()
 Il codice sotto riportato è un esempio che permette di capire la logica di funzionamento implementata. 
 La prima cosa è l'implementazione della connessione seriale e la logica che permette di intercettare il pattern *____#. Una volta intercettato viene implementato il comando stesso.
 
-In questo esempio il comando ricevuto *PD51# permette di impostare HIGH la porta PD5; il comando *PD50# permette di impostarlo a LOW.
+In questo esempio il comando ricevuto ***PD51#** permette di impostare **HIGH** la porta **PD5**; il comando ***PD50#** permette di impostarlo a **LOW**.
 
-Ultimo dettaglio non meno importante, una volta eseguito il comando; il codice ritorna tramite seriale all'ESP01, il comando stesso: questo serve ad alimentare il topic jefbrd_aaaa/OUT utile ad avere un ritorno di esecuzione dello stesso. 
+Ultimo dettaglio non meno importante, una volta eseguito il comando; il codice ritorna tramite seriale all'ESP01, il comando stesso: questo serve ad alimentare il topic **jefbrd_aaaa/OUT** utile ad avere un ritorno di esecuzione dello stesso. 
 
 Ovviamente il codice può essere adattato ad molteplici utilizzi e l'implementazione dei messaggi (payload) dei topic jefbrd_aaaa/IN e jefbrd_aaaa/OUT è assolutamente personalizzabile.
 
@@ -269,13 +269,13 @@ int main(void) {
 ## Riepilogo operativo
 
 Riepilogando quanto detto:
-- Flash firmware nodemcu-release-ENDUSR_MQTT-integer.bin su ESP01
-- Caricamento script init.lua e mqtt.lua su ESP01
+- Flash firmware **nodemcu-release-ENDUSR_MQTT-integer.bin** su ESP01
+- Caricamento script **init.lua** e **mqtt.lua** su ESP01
 - Compilazione e caricamento firmware su JefBoard-Attiny2313
 - Primo avvio e collegamento al wifi del dispositivo
 A questo punto dovremmo utilizzare un client MQTT per inviare e/o ricevere comandi dal dispositivo:
-- Impostare sul nostro client la connessione verso il broker broker.hivemq.com:1883
-- Per impostare la porta PD5 dell'attiny2313 su HIGH dovremmo pubblicare il payload *PD51# sul topic jefbrd_aaaa/IN
-- Per impostare la porta PD5 dell'attiny2313 su LOW dovremmo pubblicare il payload *PD501# sul topic jefbrd_aaaa/IN
-- Per avere un ritorno dello stato di esecuzione del comando dovremmo sottoscrivere il topic jefbrd_aaaa/OUT
-- Per avere un timestamp relativo allo stato di connessione del dispositivo al broker dovremmo sottoscrivere il topic jefbrd_aaaa/status
+- Impostare sul nostro client la connessione verso il broker **broker.hivemq.com:1883**
+- Per impostare la porta **PD5** dell'attiny2313 su **HIGH** dovremmo pubblicare il payload ***PD51#** sul topic **jefbrd_aaaa/IN**
+- Per impostare la porta **PD5** dell'attiny2313 su **LOW** dovremmo pubblicare il payload ***PD501#** sul topic **jefbrd_aaaa/IN**
+- Per avere un ritorno dello stato di esecuzione del comando dovremmo sottoscrivere il topic **jefbrd_aaaa/OUT**
+- Per avere un timestamp relativo allo stato di connessione del dispositivo al broker dovremmo sottoscrivere il topic **jefbrd_aaaa/status**
