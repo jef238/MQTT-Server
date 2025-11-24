@@ -299,9 +299,9 @@ m = mqtt.Client("jbrd" .. uid, 120)
 m:connect("broker.hivemq.com", 1883, false, function(client) //no TLS no autenticazione
 
 
-m = mqtt.Client("jbrd" .. uid, 120)
+m = mqtt.Client("jbrd" .. uid, 120, "username", "password")
 ...
-m:connect("broker.hivemq.com", 1883, false, function(client) //no TLS no autenticazione
+m:connect("crystalmq.bevywise.com", 1883, false, function(client)  //no TLS con autenticazione
 
 ```
 
