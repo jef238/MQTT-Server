@@ -99,7 +99,10 @@ m = mqtt.Client("jbrd" .. uid, 120)
 -- to topic "/lwt" if client don't send keepalive packet
 m:lwt("/lwt", "offline", 0, 0)
 
-m:on("offline", function(client) print ("offline") end)
+m:on("offline", function(client)
+  print ("offline")
+  do_mqtt_connect()
+end)
 
 -- on publish message receive event FROM jefboard attiny2313 
 m:on("message", function(client, topic, data)  
