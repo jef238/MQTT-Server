@@ -269,6 +269,8 @@ int main(void) {
 	}
 }
 ```
+## ATTENZIONE: Limitazioni broker MQTT ESP01
+
 ## Riepilogo operativo
 
 Riepilogando quanto detto:
