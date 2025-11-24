@@ -271,6 +271,29 @@ int main(void) {
 ```
 ## ATTENZIONE: Limitazioni broker MQTT ESP01
 
+Le limitazioni hardware dell'ESP01 e quelle software del firmware nodeMCU non permettono la connessione a broker MQTT con determinate caratteristiche.
+Di base sia l'autenticazione che la crittografia TLS (vedi firmware nodemcu-release-ENDUSR_MQTT_TLS-integer.bin) sono disponibili su nodeMCU ma con determinate limitazioni.
+
+Su NodeMCU non è possibile settare il root CA personalizzato né abilitare SNI (Server Name Indication) nelle connessioni TLS, almeno con il modulo tls nativo disponibile attualmente:
+
+- Root CA:
+Il modulo TLS di NodeMCU esegue la verifica dei certificati solo con le CA pubbliche incluse (Let's Encrypt, DigiCert, GlobalSign, Comodo ecc...). Non è possibile caricare un certificato root CA personalizzato tramite Lua come faresti con Python o ESP-IDF su ESP32.​
+(Potrebbe essere possibile ricompilare nodeMCU includendo altre CA ...)
+
+- SNI (Server Name Indication):
+Il modulo TLS su NodeMCU non supporta SNI, e questo può generare problemi se il broker richiede SNI per la connessione.​
+
+### Broker testati con successo:
+
+Di seguito una serie di configurazioni testate con successo riportate nel codice del file mqtt.lua:
+
+```
+...
+m:connect("test.mosquitto.org", 8883, true, function(client)
+...
+```
+
+
 ## Riepilogo operativo
 
 Riepilogando quanto detto:
