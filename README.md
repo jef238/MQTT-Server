@@ -288,8 +288,19 @@ Il modulo TLS su NodeMCU non supporta SNI, e questo può generare problemi se il
 Di seguito una serie di configurazioni testate con successo riportate nel codice del file mqtt.lua:
 
 ```
+
+m = mqtt.Client("jbrd" .. uid, 60)
+...
 m:connect("test.mosquitto.org", 8883, true, function(client) //TLS senza autenticazione
 
+
+m = mqtt.Client("jbrd" .. uid, 120)
+...
+m:connect("broker.hivemq.com", 1883, false, function(client) //no TLS no autenticazione
+
+
+m = mqtt.Client("jbrd" .. uid, 120)
+...
 m:connect("broker.hivemq.com", 1883, false, function(client) //no TLS no autenticazione
 
 ```
