@@ -162,7 +162,7 @@ Ovviamente il codice può essere adattato ad molteplici utilizzi e l'implementaz
 #define BAUD 9600
 #define MYUBRR F_CPU/16/BAUD-1
 
-#define BUFFER_SIZE 8 // Un po' più grande dei 6 caratteri attesi
+#define BUFFER_SIZE 8 // Lunghezza massima del messaggio escluso * e #
 
 // Definizione degli stati
 typedef enum {
