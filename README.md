@@ -170,7 +170,7 @@ typedef enum {
 	RECEIVING_DATA
 } SerialState;
 
-// Funzioni usart_init e usart_receive (uguali a prima)
+// Funzioni usart_init e usart_receive
 void usart_init(unsigned int ubrr) {
 	UBRRH = (unsigned char)(ubrr >> 8);
 	UBRRL = (unsigned char)ubrr;
