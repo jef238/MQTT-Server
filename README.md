@@ -27,7 +27,7 @@ qualsiasi tipo di dato binario come testo, XML, JSON immagini ecc.ec.. In questo
 
 Esempio: *PD51#
 
-La lunghezza complessiva di tale comando comprensivo dei caratteri * e # sarà di 8 caratteri (ma è modificabile)
+La lunghezza complessiva di tale comando esclusi i caratteri * e # sarà di 8 caratteri (ma è modificabile)
 
 ## Codice ESP01 (LUA scripts)
 Il firmware da caricare su ESP01 è **nodeMCU** compilato con i moduli opzionali ENDUSR e MQTT che forniscono rispettivamente il modulo per l'autoconfigurazione del WIFI e il supporto al protocollo MQTT (nodemcu-release-ENDUSR_MQTT-integer.bin vedi su questo repo); Per informazioni su come eseguire il flash del firmware vedi https://github.com/jef238/jefBoard.
