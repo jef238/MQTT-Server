@@ -260,10 +260,6 @@ int main(void) {
 				PORTD |=  (1 << PD5);
 				usart_send_string("*PD51#");
 			}
-			else if (strcmp(received_message, "HI") == 0){
-				//usart_send_string(received_message);
-				usart_send_string("*HI#");
-			}
 			message_ready = 0; // Resetta il flag
 		}
 	}
