@@ -97,7 +97,7 @@ m = mqtt.Client("jbrd" .. uid, 120)
 -- setup Last Will and Testament (optional)
 -- Broker will publish a message with qos = 0, retain = 0, data = "offline"
 -- to topic "/status" if client don't send keepalive packet
-m:lwt("/lwt", "offline", 0, 0)
+m:lwt("jbrd_" .. uid .. "/status", "offline", 0, 0)
 
 m:on("offline", function(client)
   print ("offline")
@@ -125,7 +125,7 @@ end
 function do_mqtt_connect()
   m:connect("broker.hivemq.com", 1883, false, function(client)  
     print("connected")
-    m:publish("jbrd_" .. uid .. "/status", "jefBoard is connected: " .. tmr.now(), 0, 0)    
+    m:publish("jbrd_" .. uid .. "/status", "online", 0, 1)    
     m:subscribe("jbrd_" .. uid .. "/IN", 0, function(client) print("subscribe success") end)
     end,
   handle_mqtt_error 
