@@ -95,9 +95,9 @@ end)
 m = mqtt.Client("jbrd" .. uid, 120)
 
 -- setup Last Will and Testament (optional)
--- Broker will publish a message with qos = 0, retain = 0, data = "offline"
+-- Broker will publish a message with qos = 0, retain = 1, data = "offline"
 -- to topic "/status" if client don't send keepalive packet
-m:lwt("jbrd_" .. uid .. "/status", "offline", 0, 0)
+m:lwt("jbrd_" .. uid .. "/status", "offline", 0, 1)
 
 m:on("offline", function(client)
   print ("offline")
